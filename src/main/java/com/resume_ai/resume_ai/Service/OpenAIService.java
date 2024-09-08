@@ -29,7 +29,12 @@ public class OpenAIService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
-                .onErrorResume(e -> Mono.just("Error: " + e.getMessage()));
+                .onErrorResume(e -> {
+                        // Log the error
+                        System.out.println("Error during API call: " + e.getMessage());
+        // Return a fallback response
+        return Mono.just("Error occurred: " + e.getMessage());
+        });
     }
 
 }

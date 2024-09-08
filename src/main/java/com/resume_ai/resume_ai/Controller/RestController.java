@@ -16,8 +16,8 @@ public class RestController {
 
     @Autowired
     ResumeAiService resumeAiService;
-    @GetMapping("/{emailAddress}/{file}")
-    public ResumeAiDTO sendRequest(@PathVariable(value = "emailAddress") String emailAddress, @PathVariable(value = "file") File file) throws IOException {
-        return resumeAiService.resumeServiceOrchestrator(emailAddress, file);
+    @GetMapping("/{emailAddress}/{fileName}")
+    public ResumeAiDTO sendRequest(@PathVariable(value = "emailAddress") String emailAddress, @PathVariable(value = "fileName") File fileName) throws IOException {
+        return resumeAiService.resumeServiceOrchestrator(emailAddress, new File("/Users/minhaz/Desktop/Projects/resume_ai_samples/" + fileName.toString()));
     }
 }
