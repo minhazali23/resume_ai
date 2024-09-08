@@ -23,11 +23,11 @@ public class ResumeAiService {
 
     public ResumeAiDTO resumeServiceOrchestrator(String emailAddress, File file) throws IOException {
 
-        ResumeAiDTO checkIfExists = resumeAiRepository.getOneResume(emailAddress);
-
-        if(checkIfExists.getEmailAddress() != null){
-            return checkIfExists;
-        }
+//        ResumeAiDTO checkIfExists = resumeAiRepository.getOneResume(emailAddress);
+//
+//        if(checkIfExists.getEmailAddress() != null){
+//            return checkIfExists;
+//        }
 
         String extractedPDF = etlService.extractTextFromPDF(file);
         String response = openAIService.getResponseFromOpenAI(extractedPDF).toString();

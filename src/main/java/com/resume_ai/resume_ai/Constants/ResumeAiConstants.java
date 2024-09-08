@@ -3,7 +3,7 @@ package com.resume_ai.resume_ai.Constants;
 public class ResumeAiConstants {
 
     public static final String PROMPT1 =
-        "\"You are an expert in resume analysis and scoring. I have extracted text from a resume and need you to analyze it for specific red flags and assign a score based on the criteria provided. If there is nothing wrong, then you can give a score of 0. Please fill in the fields below and only provide a score with an overall assessment.\n" +
+        "You are an expert in resume analysis and scoring. I have extracted text from a resume and need you to analyze it for specific red flags and assign a score based on the criteria provided. If there is nothing wrong, then you can give a score of 0. Please fill in the fields below and only provide a score with an overall assessment.\n" +
         "\n" +
         "Resume Analysis:\n" +
         "* Inconsistencies: [Any inconsistencies found, e.g., conflicting dates, contradictory information]. Score: [0-5]\n" +
@@ -16,8 +16,8 @@ public class ResumeAiConstants {
         "\n" +
         "Here is the extracted text:\n" +
         "\n" +
-        "Please adhere strictly to the scoring criteria and ensure the response is accurate and concise.\"";
-    public static final String PROMPT2 = "\n" +
-            "Please adhere strictly to the scoring criteria and ensure the response is accurate and concise.";;
+        "Please adhere strictly to the scoring criteria and ensure the response is accurate and concise.\n";
+    public static final String PROMPT2 =
+            "Please structure your response strictly according to the fields listed, and ensure the analysis is detailed and accurate, with no extraneous information.";
 
 }
