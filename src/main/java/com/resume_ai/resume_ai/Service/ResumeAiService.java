@@ -1,5 +1,7 @@
 package com.resume_ai.resume_ai.Service;
 
+import com.resume_ai.resume_ai.Model.DTO.ResumeAiDTO;
+import com.resume_ai.resume_ai.Repository.ResumeAiRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -7,8 +9,28 @@ import java.io.IOException;
 
 @Service
 public class ResumeAiService {
-
-    public String extractAndProcessPDF(File file, String promptTemplate) throws IOException {
-        return PdfExtractorService.extractTextFromPDF(file);
+    private final ResumeAiRepository resumeAiRepository;
+    private final OpenAIService openAIService;
+    private final EtlService etlService;
+    public ResumeAiService(ResumeAiRepository resumeAiRepository, OpenAIService openAIService, EtlService etlService){
+        this.resumeAiRepository = resumeAiRepository;
+        this.openAIService = openAIService;
+        this.etlService = etlService;
     }
+
+    public ResumeAiDTO resumeServiceOrchestrator(String emailAddress, File file) throws IOException {
+
+        ResumeAiDTO checkIfExists = resumeAiRepository.getOneResume(emailAddress);
+
+        if(checkIfExists.getEmailAddress() != null){
+            return checkIfExists;
+        }
+
+        String extractedPDF = etlService.extractTextFromPDF(file);
+        String response = openAIService.getResponseFromOpenAI(extractedPDF).toString();
+
+        ResumeAiDTO newResumeRequest = new ResumeAiDTO();
+        newResumeRequest.setEmailAddress(emailAddress);
+    }
+
 }

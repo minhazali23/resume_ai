@@ -1,4 +1,5 @@
 package com.resume_ai.resume_ai.Service;
+import com.resume_ai.resume_ai.Constants.ResumeAiConstants;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,12 +14,12 @@ public class OpenAIService {
     public OpenAIService(WebClient webClient) {
         this.webClient = webClient;
     }
-    public Mono<String> getResponseFromOpenAI(String prompt) {
+    public Mono<String> getResponseFromOpenAI(String pdfText) {
         String requestBody = "{"
                 + "\"model\": \"text-davinci-003\","
-                + "\"prompt\": \"" + prompt + "\","
+                + "\"prompt\": \"" + ResumeAiConstants.PROMPT1.concat(pdfText).concat(ResumeAiConstants.PROMPT2) + "\","
                 + "\"max_tokens\": 1000,"
-                + "\"temperature\": 0.5"
+                + "\"temperature\": 0.2"
                 + "}";
 
         // Making a POST request using WebClient
