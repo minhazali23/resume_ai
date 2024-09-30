@@ -30,6 +30,7 @@ public class ResumeAiRepository {
         saveResumeAiEntity.setFrequent_job_changes(resumeAiDTO.getFrequent_job_changes());
         saveResumeAiEntity.setMissing_information(resumeAiDTO.getMissing_information());
 
+
         dynamoDBMapper.save(saveResumeAiEntity);
 
         return resumeAiDTO;

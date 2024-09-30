@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 
 @DynamoDBTable(tableName = "Resumes")
 public class ResumeAiEntity {
-
     @DynamoDBHashKey(attributeName = "emailAddress")
     private String emailAddress;
     @DynamoDBAttribute(attributeName = "score")
@@ -27,6 +26,16 @@ public class ResumeAiEntity {
     private String frequent_job_changes;
     @DynamoDBAttribute(attributeName = "missingInformation")
     private String missing_information;
+    @DynamoDBAttribute(attributeName = "inconsistenciesScore")
+    private int inconsistencies_Score;
+    @DynamoDBAttribute(attributeName = "exaggeratedClaimsScore")
+    private int exaggerated_claims_Score;
+    @DynamoDBAttribute(attributeName = "lackOfDetailScore")
+    private int lack_of_detail_Score;
+    @DynamoDBAttribute(attributeName = "frequentJobChangesScore")
+    private int frequent_job_changes_Score;
+    @DynamoDBAttribute(attributeName = "missingInformationScore")
+    private int missing_information_Score;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -99,6 +108,45 @@ public class ResumeAiEntity {
     public void setMissing_information(String missing_information) {
         this.missing_information = missing_information;
     }
+    public int getInconsistencies_Score() {
+        return inconsistencies_Score;
+    }
+
+    public void setInconsistencies_Score(int inconsistencies_Score) {
+        this.inconsistencies_Score = inconsistencies_Score;
+    }
+
+    public int getExaggerated_claims_Score() {
+        return exaggerated_claims_Score;
+    }
+
+    public void setExaggerated_claims_Score(int exaggerated_claims_Score) {
+        this.exaggerated_claims_Score = exaggerated_claims_Score;
+    }
+
+    public int getLack_of_detail_Score() {
+        return lack_of_detail_Score;
+    }
+
+    public void setLack_of_detail_Score(int lack_of_detail_Score) {
+        this.lack_of_detail_Score = lack_of_detail_Score;
+    }
+
+    public int getFrequent_job_changes_Score() {
+        return frequent_job_changes_Score;
+    }
+
+    public void setFrequent_job_changes_Score(int frequent_job_changes_Score) {
+        this.frequent_job_changes_Score = frequent_job_changes_Score;
+    }
+
+    public int getMissing_information_Score() {
+        return missing_information_Score;
+    }
+
+    public void setMissing_information_Score(int missing_information_Score) {
+        this.missing_information_Score = missing_information_Score;
+    }
 
     @Override
     public String toString() {
@@ -112,6 +160,11 @@ public class ResumeAiEntity {
                 ", lack_of_detail='" + lack_of_detail + '\'' +
                 ", frequent_job_changes='" + frequent_job_changes + '\'' +
                 ", missing_information='" + missing_information + '\'' +
+                ", inconsistencies_Score='" + inconsistencies_Score + '\'' +
+                ", exaggerated_claims_Score='" + exaggerated_claims_Score + '\'' +
+                ", lack_of_detail_Score='" + lack_of_detail_Score + '\'' +
+                ", frequent_job_changes_Score='" + frequent_job_changes_Score + '\'' +
+                ", missing_information_Score='" + missing_information_Score + '\'' +
                 '}';
     }
 
