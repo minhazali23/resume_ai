@@ -11,13 +11,11 @@ public class ResumeAiConstants {
         "* Lack of Detail: [Vague or generic descriptions of responsibilities or accomplishments]. Score: [0-2]\n" +
         "* Frequent Job Changes: [Any patterns of short-term employment or unexplained reasons for leaving]. Score: [0-3]\n" +
         "* Missing Information: [Gaps in employment history that are not explained]. Score: [0-3]\n" +
-        "* Plagiarism: [Evidence of copied or plagiarized content]. Score: [0-10]\n" +
         "* Summary: [Give me a short summary of your findings]\n" +
         "\n" +
-        "Here is the extracted text:\n" +
-        "\n" +
-        "Please adhere strictly to the scoring criteria and ensure the response is accurate and concise.\n";
-    public static final String PROMPT2 =
-            "Please structure your response strictly according to the fields listed, and ensure the analysis is detailed and accurate, with no extraneous information.";
+        "Here is the extracted text:\n";
+
+        public static final String PROMPT2 =
+            "Please structure your response strictly according to the fields listed, and ensure the analysis is detailed and accurate, with no extraneous information. Do not provide your input other than the score for any fields except the summary";
 
 }

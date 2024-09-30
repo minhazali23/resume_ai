@@ -15,10 +15,13 @@ public class ResumeAiService {
     private final ResumeAiRepository resumeAiRepository;
     private final OpenAIService openAIService;
     private final EtlService etlService;
-    public ResumeAiService(ResumeAiRepository resumeAiRepository, OpenAIService openAIService, EtlService etlService){
+
+    private final OpenAiServiceClient openAiServiceClient;
+    public ResumeAiService(ResumeAiRepository resumeAiRepository, OpenAIService openAIService, EtlService etlService, OpenAiServiceClient openAiServiceClient){
         this.resumeAiRepository = resumeAiRepository;
         this.openAIService = openAIService;
         this.etlService = etlService;
+        this.openAiServiceClient = openAiServiceClient;
     }
 
     public ResumeAiDTO resumeServiceOrchestrator(String emailAddress, File file) throws IOException {
@@ -30,7 +33,8 @@ public class ResumeAiService {
 //        }
 
         String extractedPDF = etlService.extractTextFromPDF(file);
-        String response = openAIService.getResponseFromOpenAI(extractedPDF).toString();
+        String response = openAiServiceClient.getResponse(extractedPDF);
+//        String response = openAIService.getResponseFromOpenAI(extractedPDF).toString();
         System.out.println(response);
         ResumeAiDTO newResumeRequest = new ResumeAiDTO();
         newResumeRequest.setEmailAddress(emailAddress);
