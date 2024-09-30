@@ -5,7 +5,12 @@ import java.sql.Timestamp;
 public class ResumeAiDTO {
 
     private String emailAddress;
-    private int score;
+    private int totalScore;
+    private String inconsistencies;
+    private String exaggerated_claims;
+    private String lack_of_detail;
+    private String frequent_job_changes;
+    private String missing_information;
     private Timestamp timestamp;
     private String eval;
 
@@ -17,12 +22,12 @@ public class ResumeAiDTO {
         this.emailAddress = emailAddress;
     }
 
-    public int getScore() {
-        return score;
+    public int getTotalScore() {
+        return totalScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 
     public Timestamp getTimestamp() {
@@ -41,11 +46,56 @@ public class ResumeAiDTO {
         this.eval = eval;
     }
 
+    public String getInconsistencies() {
+        return inconsistencies;
+    }
+
+    public void setInconsistencies(String inconsistencies) {
+        this.inconsistencies = inconsistencies;
+    }
+
+    public String getExaggerated_claims() {
+        return exaggerated_claims;
+    }
+
+    public void setExaggerated_claims(String exaggerated_claims) {
+        this.exaggerated_claims = exaggerated_claims;
+    }
+
+    public String getLack_of_detail() {
+        return lack_of_detail;
+    }
+
+    public void setLack_of_detail(String lack_of_detail) {
+        this.lack_of_detail = lack_of_detail;
+    }
+
+    public String getFrequent_job_changes() {
+        return frequent_job_changes;
+    }
+
+    public void setFrequent_job_changes(String frequent_job_changes) {
+        this.frequent_job_changes = frequent_job_changes;
+    }
+
+    public String getMissing_information() {
+        return missing_information;
+    }
+
+    public void setMissing_information(String missing_information) {
+        this.missing_information = missing_information;
+    }
+
     @Override
     public String toString() {
         return "ResumeAiDTO{" +
                 "emailAddress='" + emailAddress + '\'' +
-                ", score=" + score +
+                ", totalScore=" + totalScore +
+                ", inconsistencies='" + inconsistencies + '\'' +
+                ", exaggerated_claims='" + exaggerated_claims + '\'' +
+                ", lack_of_detail='" + lack_of_detail + '\'' +
+                ", frequent_job_changes='" + frequent_job_changes + '\'' +
+                ", missing_information='" + missing_information + '\'' +
                 ", timestamp=" + timestamp +
                 ", eval='" + eval + '\'' +
                 '}';

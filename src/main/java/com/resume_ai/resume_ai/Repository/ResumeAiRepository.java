@@ -21,9 +21,14 @@ public class ResumeAiRepository {
 
         ResumeAiEntity saveResumeAiEntity = new ResumeAiEntity();
         saveResumeAiEntity.setEmailAddress(resumeAiDTO.getEmailAddress());
-        saveResumeAiEntity.setScore(resumeAiDTO.getScore());
+        saveResumeAiEntity.setScore(resumeAiDTO.getTotalScore());
         saveResumeAiEntity.setEval(resumeAiDTO.getEval());
         saveResumeAiEntity.setTimestamp(resumeAiDTO.getTimestamp());
+        saveResumeAiEntity.setInconsistencies(resumeAiDTO.getInconsistencies());
+        saveResumeAiEntity.setExaggerated_claims(resumeAiDTO.getExaggerated_claims());
+        saveResumeAiEntity.setLack_of_detail(resumeAiDTO.getLack_of_detail());
+        saveResumeAiEntity.setFrequent_job_changes(resumeAiDTO.getFrequent_job_changes());
+        saveResumeAiEntity.setMissing_information(resumeAiDTO.getMissing_information());
 
         dynamoDBMapper.save(saveResumeAiEntity);
 
@@ -36,9 +41,15 @@ public class ResumeAiRepository {
         try {
             ResumeAiEntity getResumeEntity = dynamoDBMapper.load(ResumeAiEntity.class, emailAddress);
             getOneResume.setEmailAddress(getResumeEntity.getEmailAddress());
-            getOneResume.setScore(getResumeEntity.getScore());
+            getOneResume.setTotalScore(getResumeEntity.getScore());
             getOneResume.setEval(getResumeEntity.getEval());
             getOneResume.setTimestamp(getResumeEntity.getTimestamp());
+            getOneResume.setInconsistencies(getOneResume.getInconsistencies());
+            getOneResume.setExaggerated_claims(getOneResume.getExaggerated_claims());
+            getOneResume.setLack_of_detail(getOneResume.getLack_of_detail());
+            getOneResume.setFrequent_job_changes(getOneResume.getFrequent_job_changes());
+            getOneResume.setMissing_information(getResumeEntity.getMissing_information());
+
         }catch (NullPointerException ex){
             System.out.println(ex);
         }
@@ -50,9 +61,14 @@ public class ResumeAiRepository {
     public ResumeAiDTO updateOneResume(ResumeAiDTO resumeAiDTO){
         ResumeAiEntity updatedResumeEntity = new ResumeAiEntity();
         updatedResumeEntity.setEmailAddress(resumeAiDTO.getEmailAddress());
-        updatedResumeEntity.setScore(resumeAiDTO.getScore());
+        updatedResumeEntity.setScore(resumeAiDTO.getTotalScore());
         updatedResumeEntity.setEval(resumeAiDTO.getEval());
         updatedResumeEntity.setTimestamp(Timestamp.from(Instant.now()));
+        updatedResumeEntity.setInconsistencies(resumeAiDTO.getInconsistencies());
+        updatedResumeEntity.setExaggerated_claims(resumeAiDTO.getExaggerated_claims());
+        updatedResumeEntity.setLack_of_detail(resumeAiDTO.getLack_of_detail());
+        updatedResumeEntity.setFrequent_job_changes(resumeAiDTO.getFrequent_job_changes());
+        updatedResumeEntity.setMissing_information(resumeAiDTO.getMissing_information());
 
         DynamoDBMapperConfig dynamoDBMapperConfig = new DynamoDBMapperConfig.Builder()
                 .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.UPDATE)

@@ -16,6 +16,7 @@ public class ResumeAiConstants {
         "Here is the extracted text:\n";
 
         public static final String PROMPT2 =
-            "Please structure your response strictly according to the fields listed, and ensure the analysis is detailed and accurate, with no extraneous information. Do not provide your input other than the score for any fields except the summary";
+            "Please structure your response strictly according to the fields listed, and ensure the analysis is detailed and accurate, with no extraneous information. " +
+                    "Please do not provide extra commentary for any of the fields above other than the numerical score. The only field which you may add commentary is the Summary field";
 
 }

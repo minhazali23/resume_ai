@@ -13,13 +13,10 @@ import java.io.IOException;
 public class ResumeAiService {
     private static final Logger logger = LoggerFactory.getLogger(ResumeAiService.class);
     private final ResumeAiRepository resumeAiRepository;
-    private final OpenAIService openAIService;
     private final EtlService etlService;
-
     private final OpenAiServiceClient openAiServiceClient;
-    public ResumeAiService(ResumeAiRepository resumeAiRepository, OpenAIService openAIService, EtlService etlService, OpenAiServiceClient openAiServiceClient){
+    public ResumeAiService(ResumeAiRepository resumeAiRepository, EtlService etlService, OpenAiServiceClient openAiServiceClient){
         this.resumeAiRepository = resumeAiRepository;
-        this.openAIService = openAIService;
         this.etlService = etlService;
         this.openAiServiceClient = openAiServiceClient;
     }
