@@ -16,48 +16,70 @@ import java.util.regex.Pattern;
 @Service
 public class EtlService {
     private static final Logger logger = LoggerFactory.getLogger(EtlService.class);
-    private static final Pattern regexFieldsPattern = Pattern.compile(
-            "\\*\\s*(.*?)\\s*: (.*?)\\s*Score: (\\d+)|\n" +
-                    "\\*\\s*(Summary)\\s*: (.*)", Pattern.DOTALL);
 
     public ResumeAiDTO processResponse(String response) {
         try {
-
-            ResumeAiDTO getExtractedContent = extractContentFromResponse(response);
-
-        } catch (NullPointerException ex) {
+            return extractContentFromResponse(response);
+        } catch (Exception ex) {
             logger.error("Unable to process response from ChatGPT: ", ex);
             throw new InvalidRegexMatchException("Regex was unable to properly match the response");
         }
-        return null;
     }
 
-    private ResumeAiDTO extractContentFromResponse(String response){
+    private ResumeAiDTO extractContentFromResponse(String response) {
 
-        Matcher matcher = regexFieldsPattern.matcher(response);
+        ResumeAiDTO regexMatchedDTO = new ResumeAiDTO();
 
-        if(matcher.find()){
-            ResumeAiDTO regexMatchedDTO = new ResumeAiDTO();
+        // Parse main entries
+        String mainEntriesRegex = "\\*\\s*(.*?)\\s*:\\s*(.*?)\\s*Score:\\s*(\\d+)";
+        Pattern mainEntriesPattern = Pattern.compile(mainEntriesRegex, Pattern.DOTALL);
+        Matcher mainEntriesMatcher = mainEntriesPattern.matcher(response);
 
-            regexMatchedDTO.setInconsistencies(matcher.group(2).trim());
-            regexMatchedDTO.setInconsistencies_Score(Integer.parseInt(matcher.group(3).trim()));
+        while (mainEntriesMatcher.find()) {
+            String category = mainEntriesMatcher.group(1).trim();
+            String description = mainEntriesMatcher.group(2).trim();
+            int score = Integer.parseInt(mainEntriesMatcher.group(3).trim());
 
-            regexMatchedDTO.setExaggerated_claims(matcher.group(5));
-            regexMatchedDTO.setExaggerated_claims_Score(Integer.parseInt(matcher.group(6).trim()));
-
-            regexMatchedDTO.setLack_of_detail(matcher.group(8));
-            regexMatchedDTO.setLack_of_detail_Score(Integer.parseInt(matcher.group(9).trim()));
-
-            regexMatchedDTO.setFrequent_job_changes(matcher.group(11).trim());
-            regexMatchedDTO.setFrequent_job_changes_Score(Integer.parseInt(matcher.group(12).trim()));
-
-            regexMatchedDTO.setMissing_information(matcher.group(14).trim());
-            regexMatchedDTO.setMissing_information_Score(Integer.parseInt(matcher.group(15).trim()));
-
-            regexMatchedDTO.setEval(matcher.group(17).trim());
+            switch (category) {
+                case "Inconsistencies":
+                    regexMatchedDTO.setInconsistencies(description);
+                    regexMatchedDTO.setInconsistencies_Score(score);
+                    break;
+                case "Exaggerated Claims":
+                    regexMatchedDTO.setExaggerated_claims(description);
+                    regexMatchedDTO.setExaggerated_claims_Score(score);
+                    break;
+                case "Lack of Detail":
+                    regexMatchedDTO.setLack_of_detail(description);
+                    regexMatchedDTO.setLack_of_detail_Score(score);
+                    break;
+                case "Frequent Job Changes":
+                    regexMatchedDTO.setFrequent_job_changes(description);
+                    regexMatchedDTO.setFrequent_job_changes_Score(score);
+                    break;
+                case "Missing Information":
+                    regexMatchedDTO.setMissing_information(description);
+                    regexMatchedDTO.setMissing_information_Score(score);
+                    break;
+                default:
+                    logger.warn("Unknown category: " + category);
+                    break;
+            }
         }
 
-        return null;
+        // Parse the summary
+        String summaryRegex = "\\*\\s*Summary\\s*:\\s*(.*)";
+        Pattern summaryPattern = Pattern.compile(summaryRegex, Pattern.DOTALL);
+        Matcher summaryMatcher = summaryPattern.matcher(response);
+
+        if (summaryMatcher.find()) {
+            String summary = summaryMatcher.group(1).trim();
+            regexMatchedDTO.setEval(summary);
+        } else {
+            logger.warn("Summary not found in the response.");
+        }
+
+        return regexMatchedDTO;
     }
 
     public static String extractTextFromPDF(File file) throws IOException {
